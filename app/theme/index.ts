@@ -2,7 +2,13 @@ import { extendTheme } from 'native-base';
 import { Platform } from 'react-native';
 import Device from 'react-native-device-info';
 import colors from './Colors';
-import { Button, Text } from './components';
+import {
+  Button,
+  Text,
+  Input,
+  FormControlErrorMessage,
+  FormControlLabel,
+} from './components';
 
 const theme = extendTheme({
   colors: {
@@ -24,6 +30,9 @@ const theme = extendTheme({
   components: {
     Button,
     Text,
+    Input,
+    FormControlErrorMessage,
+    FormControlLabel,
   },
 });
 
