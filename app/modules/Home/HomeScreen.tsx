@@ -9,12 +9,14 @@ const HomeScreen = () => {
   const { navigate } = useAppNavigation();
   return (
     <ScreenLayout>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
         <Text>{Strings.HomeScreen}</Text>
-        <Button
-          onPress={() => navigate(NavigationRoutes.Details)}
-          title={'go to details'}
-        />
+        <View style={{ marginTop: 20 }}>
+          <Button
+            onPress={() => navigate(NavigationRoutes.Details)}
+            title={'go to details'}
+          />
+        </View>
         <Button
           onPress={() => toastRef.current?.success('Succeess')}
           title={'Test Toast Success!'}

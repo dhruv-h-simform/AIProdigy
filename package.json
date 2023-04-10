@@ -13,12 +13,14 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.18.1",
+    "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/core": "^6.4.8",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/routers": "^6.1.8",
     "@react-navigation/stack": "^6.3.16",
     "@reduxjs/toolkit": "^1.9.3",
     "@types/webpack-dev-server": "^4.7.2",
+    "add": "^2.0.6",
     "apisauce": "^3.0.0",
     "babel-plugin-react-native-web": "^0.18.12",
     "i18next": "^22.4.14",
@@ -41,7 +43,8 @@
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
+    "webpack-dev-server": "^4.11.1",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

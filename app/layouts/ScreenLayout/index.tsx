@@ -19,13 +19,13 @@ const ScreenLayout = ({ children, ...rest }: ScreenLayoutProps) => {
       <StatusBar
         networkActivityIndicatorVisible
         translucent={true}
-        barStyle={colorMode === 'dark' ? 'light-content' : 'dark-content'}
+        barStyle={colorMode === 'dark' ? 'light-content' : 'light-content'}
         backgroundColor={'rgba(0,0,0,0)'}
       />
       <Stack
         flex={1}
         _light={{ backgroundColor: 'app.white.light' }}
-        _dark={{ backgroundColor: 'app.black.light' }}
+        _dark={{ backgroundColor: 'app.white.light' }}
         {...rest}>
         {React.isValidElement(children) ? (
           children

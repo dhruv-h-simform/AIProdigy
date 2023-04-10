@@ -2,7 +2,7 @@ import { extendTheme } from 'native-base';
 import { Platform } from 'react-native';
 import Device from 'react-native-device-info';
 import colors from './Colors';
-import { Button } from './components';
+import { Button, Text } from './components';
 
 const theme = extendTheme({
   colors: {
@@ -23,6 +23,7 @@ const theme = extendTheme({
   },
   components: {
     Button,
+    Text,
   },
 });
 

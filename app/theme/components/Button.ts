@@ -3,7 +3,8 @@ export default {
     rounded_solid: {
       _light: { bg: 'app.primary.light' },
       _dark: { bg: 'app.primary.dark' },
-      h: 57,
+      h: 54,
+      _web: { h: 45 },
       borderRadius: 30,
       _text: {
         fontWeight: '600',
@@ -41,11 +42,11 @@ export default {
       },
     },
     bordered: {
-      h: 57,
+      h: 54,
       _text: {
         fontWeight: '600',
-        _light: { color: 'app.lightBlack.light' },
-        _dark: { color: 'app.white.light' },
+        _light: { color: 'app.primary.light' },
+        _dark: { color: 'app.primary.dark' },
       },
       _hover: {
         _light: { bg: 'app.primary.light' },
@@ -57,20 +58,20 @@ export default {
         borderColor: 'transparent',
       },
       _pressed: {
-        _light: { bg: 'app.primary.dark' },
-        _dark: { bg: 'app.primary.light' },
+        _light: { bg: 'app.primary.light' },
+        _dark: { bg: 'app.primary.dark' },
         _text: {
           _light: { color: 'app.white.light' },
           _dark: { color: 'app.white.light' },
         },
         borderColor: 'transparent',
       },
-      _light: { borderColor: 'app.lightBlack.light' },
-      _dark: { borderColor: 'app.white.light' },
+      _light: { borderColor: 'app.primary.light' },
+      _dark: { borderColor: 'app.primary.dark' },
       borderWidth: 1,
     },
     rounded_outline: {
-      h: 57,
+      h: 54,
       _text: {
         fontWeight: '600',
         _light: { color: 'app.primary.light' },
@@ -108,7 +109,7 @@ export default {
       borderRadius: 30,
     },
     filled: {
-      h: 57,
+      h: 54,
       _light: {
         bg: 'app.primary.light',
         _text: {
