@@ -5,8 +5,8 @@
 
 export default {
   primary: {
-    light: '#007AFF',
-    dark: '#007AFF',
+    light: '#DE5E69',
+    dark: '#831a23',
   },
   themeColor: {
     light: '#0a0e15',
@@ -14,4 +14,5 @@ export default {
   },
   white: { light: '#FFFFFF', dark: '#1e1d2b' },
   black: { light: '#000000', dark: '#fff' },
+  lightBlack: { light: '#333333', dark: '#191919' },
 };
