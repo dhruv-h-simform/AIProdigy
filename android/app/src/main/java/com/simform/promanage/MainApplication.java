@@ -1,4 +1,4 @@
-package com.awesomeproject;
+package com.simform.promanage;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
