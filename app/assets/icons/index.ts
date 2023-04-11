@@ -7,4 +7,6 @@ export default {
   profile: require('./profile.png'),
   search: require('./search.png'),
   tune: require('./tune.png'),
+  attachment: require('./attachment.png'),
+  cancel: require('./cancel.png'),
 };

@@ -1,7 +1,14 @@
 import { Image, ScrollView, Stack, Text, useColorModeValue } from 'native-base';
 import React from 'react';
 import { icons } from '../../assets';
-import { CustomButton, CustomTextInput } from '../../components';
+import {
+  BottomActionSheet,
+  Card,
+  CustomButton,
+  CustomImagePicker,
+  CustomTextInput,
+  bottomActionSheetRef,
+} from '../../components';
 import { CustomDropDown } from '../../components/CustomDropDown';
 import { NavigationRoutes } from '../../constants';
 import { useAppNavigation } from '../../hooks';
@@ -27,10 +34,10 @@ const TestingComponentScreen = () => {
             }}
           />
           <CustomButton
-            title="Go To Home"
+            title="Open Bottom Sheet"
             variant={'rounded_outline'}
             onPress={() => {
-              navigate(NavigationRoutes.Home);
+              bottomActionSheetRef.current?.show();
             }}
           />
           <CustomButton
@@ -96,7 +103,26 @@ const TestingComponentScreen = () => {
               />
             }
           />
+          <CustomImagePicker
+            label="Attachment"
+            onImageAdd={res => {
+              console.log(res);
+            }}
+            enableAttachment
+          />
+          <Card.UsersCard
+            userDetails={{
+              firstName: 'Dhruv',
+              lastName: 'Harsora',
+              email: 'dhruv.h@simformsolutions.com',
+            }}
+          />
         </Stack>
+        <BottomActionSheet>
+          <Stack flex={1} space={1.5} mx={2}>
+            <Text>Testing component</Text>
+          </Stack>
+        </BottomActionSheet>
       </ScrollView>
     </ScreenLayout>
   );

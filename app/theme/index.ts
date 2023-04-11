@@ -17,7 +17,7 @@ const theme = extendTheme({
   },
   shadows: {
     card: {
-      shadowColor: colors.themeColor.dark,
+      shadowColor: colors.black.light,
       shadowOffset: {
         width: 0,
         height: 4,
