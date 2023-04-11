@@ -4,6 +4,8 @@ import { CustomTextInput } from './CustomInput';
 import Card from './CustomCard';
 import CustomImagePicker from './CustomImagePicker';
 import CustomTabIcon from './CustomTabIcon';
+import { CustomDropDown } from './CustomDropDown';
+import { CustomProgress } from './CustomProgress';
 
 export {
   BottomActionSheet,
@@ -13,4 +15,6 @@ export {
   Card,
   bottomActionSheetRef,
   CustomTextInput,
+  CustomDropDown,
+  CustomProgress,
 };
