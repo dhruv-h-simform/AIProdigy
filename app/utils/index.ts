@@ -19,3 +19,5 @@ export const hexToRgb = (hex: string, alpha: number) => {
     return 'rgb(' + r + ', ' + g + ', ' + b + ')';
   }
 };
+export * from './CommonUtils';
+export * from './utils';

@@ -19,4 +19,8 @@ export default {
   white: { light: '#FFFFFF', dark: '#1e1d2b' },
   black: { light: '#000000', dark: '#fff' },
   lightBlack: { light: '#333333', dark: '#191919' },
+  error: {
+    light: '#FF3B30',
+    dark: '#bd0a00',
+  },
 };

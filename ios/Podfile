@@ -43,6 +43,12 @@ target 'Promanage' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  #  For asking various permission
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
+  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
+  pod 'Permission-PhotoLibraryAddOnly', :path => "#{permissions_path}/PhotoLibraryAddOnly"
+
   target 'PromanageTests' do
     inherit! :complete
     # Pods for testing
