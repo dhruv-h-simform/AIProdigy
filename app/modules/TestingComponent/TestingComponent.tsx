@@ -8,8 +8,9 @@ import {
   CustomImagePicker,
   CustomTextInput,
   bottomActionSheetRef,
+  CustomDropDown,
+  CustomProgress,
 } from '../../components';
-import { CustomDropDown } from '../../components/CustomDropDown';
 import { NavigationRoutes } from '../../constants';
 import { useAppNavigation } from '../../hooks';
 import { ScreenLayout } from '../../layouts';
@@ -117,6 +118,9 @@ const TestingComponentScreen = () => {
               email: 'dhruv.h@simformsolutions.com',
             }}
           />
+          <CustomProgress value={23} />
+          <CustomProgress value={45} />
+          <CustomProgress value={97} />
         </Stack>
         <BottomActionSheet>
           <Stack flex={1} space={1.5} mx={2}>
