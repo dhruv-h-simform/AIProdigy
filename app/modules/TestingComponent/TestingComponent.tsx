@@ -4,6 +4,7 @@ import { NavigationRoutes } from '../../constants';
 import { ScreenLayout } from '../../layouts';
 import { CustomButton } from '../../components';
 import { ScrollView, Stack, Text } from 'native-base';
+import { CustomDropDown } from '../../components/CustomDropDown';
 
 const TestingComponentScreen = () => {
   const { navigate } = useAppNavigation();
@@ -55,6 +56,18 @@ const TestingComponentScreen = () => {
           <Text variant={'bold'}>bold</Text>
           <Text variant={'semi-bold'}>semi-bold</Text>
           <Text variant={'small'}>small</Text>
+          <CustomDropDown
+            label={'Choose Technology'}
+            placeholder={'Choose Technology'}
+            menus={[
+              { id: 1, label: 'iOS', value: 'ios' },
+              { id: 2, label: 'Android', value: 'android' },
+              { id: 3, label: 'React Native', value: 'rn' },
+              { id: 4, label: 'Web', value: 'web' },
+              { id: 5, label: 'Node js', value: 'node' },
+              { id: 6, label: 'Windows', value: 'win' },
+            ]}
+          />
         </Stack>
       </ScrollView>
     </ScreenLayout>
