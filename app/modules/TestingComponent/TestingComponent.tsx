@@ -1,13 +1,19 @@
+import { Image, ScrollView, Stack, Text, useColorModeValue } from 'native-base';
 import React from 'react';
-import { useAppNavigation } from '../../hooks';
-import { NavigationRoutes } from '../../constants';
-import { ScreenLayout } from '../../layouts';
-import { CustomButton } from '../../components';
-import { ScrollView, Stack, Text } from 'native-base';
+import { icons } from '../../assets';
+import { CustomButton, CustomTextInput } from '../../components';
 import { CustomDropDown } from '../../components/CustomDropDown';
+import { NavigationRoutes } from '../../constants';
+import { useAppNavigation } from '../../hooks';
+import { ScreenLayout } from '../../layouts';
+import { Colors } from '../../theme';
 
 const TestingComponentScreen = () => {
   const { navigate } = useAppNavigation();
+  const tintColor = useColorModeValue(
+    Colors.lightBlack.light,
+    Colors.lightBlack.dark,
+  );
   return (
     <ScreenLayout>
       <ScrollView flex={1}>
@@ -67,6 +73,28 @@ const TestingComponentScreen = () => {
               { id: 5, label: 'Node js', value: 'node' },
               { id: 6, label: 'Windows', value: 'win' },
             ]}
+          />
+          <CustomTextInput
+            required
+            variant="outline"
+            label="hello"
+            placeholder="enter name"
+            // isInvalid={true}
+            // errorMessage="enter valid number"
+          />
+          <CustomTextInput
+            borderRadius={100}
+            variant="outline"
+            label="hello"
+            placeholder="search"
+            InputRightElement={
+              <Image
+                source={icons.search}
+                size={6}
+                mr={3}
+                tintColor={tintColor}
+              />
+            }
           />
         </Stack>
       </ScrollView>

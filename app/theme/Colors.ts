@@ -8,6 +8,10 @@ export default {
     light: '#DE5E69',
     dark: '#831a23',
   },
+  red: {
+    light: '#FF0000',
+    dark: '#b20000',
+  },
   themeColor: {
     light: '#0a0e15',
     dark: '#FFFFFF',
