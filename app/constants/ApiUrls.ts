@@ -1,6 +1,8 @@
 export default {
   login: {
-    loginWithEmail: 'auth/login/email',
-    login: 'auth/login',
+    login: '',
+  },
+  logout: {
+    logout: 'token/revoke?token=',
   },
 };

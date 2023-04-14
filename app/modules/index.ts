@@ -4,6 +4,8 @@ import TestingComponentScreen from './TestingComponent';
 import ActionsScreen from './Actions';
 import MeetingScreen from './Meeting';
 import ProfileScreen from './Profile';
+import { LoginScreen } from './Auth';
+import SplashScreen from './SplashScreen';
 
 export {
   HomeScreen,
@@ -12,4 +14,6 @@ export {
   ActionsScreen,
   MeetingScreen,
   ProfileScreen,
+  LoginScreen,
+  SplashScreen,
 };

@@ -62,8 +62,17 @@ AuthorizedAPI.addAsyncRequestTransform(async request => {
       .unix(token_decoded.exp)
       .isAfter(moment().subtract(1, 'h'));
 
+    // request.params = {
+    //   ...request.params,
+    //   access_token: token,
+    // };
+
     if (isValidToken) {
-      request.headers.Authorization = token;
+      // request.params = {
+      //   ...request.params,
+      //   access_token: token,
+      // };
+      request.headers.Authorization = `Bearer ${token}`;
     } else {
       // const idTokenResult = await auth().currentUser?.getIdTokenResult();
       // request.headers.Authorization = idTokenResult?.token;
@@ -80,7 +89,11 @@ AuthorizedAPI.addAsyncRequestTransform(async request => {
 
     token = await AsyncStorage.getItem(AppConstants.AUTH_TOKEN);
   }
-  request.headers.Authorization = token;
+  request.headers.Authorization = `Bearer ${token}`;
+  // request.params = {
+  //   ...request.params,
+  //   access_token: token,
+  // };
 });
 
 export { AuthorizedAPI, UnauthorizedAPI };
