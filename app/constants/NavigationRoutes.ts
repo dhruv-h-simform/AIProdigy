@@ -10,4 +10,6 @@ export default {
   MeetingStackContainer: '/meeting-stack-container',
   ProfileStackContainer: '/profile-stack-container',
   BottomTabs: '/bottom-tabs',
+  Login: '/login',
+  SplashScreen: '/splash-screen',
 };
