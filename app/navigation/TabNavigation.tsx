@@ -9,6 +9,7 @@ import styles from './styles/TabNavigationStyles';
 import { MeetingScreen } from '../modules';
 import { ProfileScreen } from '../modules';
 import { icons } from '../assets';
+import ProjectsScreen from '../modules/Projects';
 
 interface CustomTabTextProps extends ITextProps {
   focused?: boolean;
@@ -22,7 +23,10 @@ const HomeStackContainer = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name={NavigationRoutes.Home} component={HomeScreen} />
-      <Stack.Screen name={NavigationRoutes.Details} component={DetailsScreen} />
+      <Stack.Screen
+        name={NavigationRoutes.Details}
+        component={ProjectsScreen}
+      />
     </Stack.Navigator>
   );
 };

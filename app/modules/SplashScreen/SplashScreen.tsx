@@ -11,7 +11,6 @@ const SplashScreen = () => {
   useEffect(() => {
     let timeOut: NodeJS.Timeout;
     getString(AppConstants.AUTH_TOKEN).then(res => {
-      console.log('res', res);
       timeOut = setTimeout(() => {
         if (isNil(res)) {
           replace(NavigationRoutes.Login);

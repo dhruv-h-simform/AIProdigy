@@ -26,6 +26,7 @@ const apiClient = (baseURL: string) => getApiInstance(baseURL);
  * Use UnauthorizedAPI when Authorization token NOT required for the API request
  */
 const AuthorizedAPI = protectedApiClient(AppConstants.BASE_URL);
+const ProjectAuthorizedAPI = protectedApiClient(AppConstants.PROJECT_BASE_URL);
 const UnauthorizedAPI = apiClient(AppConstants.BASE_URL);
 
 /**
@@ -46,6 +47,7 @@ const APIMonitor = (response: any) => {
 };
 
 AuthorizedAPI.addMonitor(APIMonitor);
+ProjectAuthorizedAPI.addMonitor(APIMonitor);
 UnauthorizedAPI.addMonitor(APIMonitor);
 
 // Mutate request object in here to change header about the request.
@@ -96,4 +98,53 @@ AuthorizedAPI.addAsyncRequestTransform(async request => {
   // };
 });
 
-export { AuthorizedAPI, UnauthorizedAPI };
+// Mutate request object in here to change header about the request.
+ProjectAuthorizedAPI.addAsyncRequestTransform(async request => {
+  let token: string | null | void = '';
+  const state = store?.getState();
+  try {
+    token = await AsyncStorage.getItem(AppConstants.API_AUTH_TOKEN);
+    console.log('ProjectAuthorizedAPI', token);
+    const token_decoded = jwt_decode(token!);
+
+    const isValidToken = moment
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      .unix(token_decoded.exp)
+      .isAfter(moment().subtract(1, 'h'));
+
+    // request.params = {
+    //   ...request.params,
+    //   access_token: token,
+    // };
+
+    if (isValidToken) {
+      // request.params = {
+      //   ...request.params,
+      //   access_token: token,
+      // };
+      request.headers.Authorization = `Bearer ${token}`;
+    } else {
+      // const idTokenResult = await auth().currentUser?.getIdTokenResult();
+      // request.headers.Authorization = idTokenResult?.token;
+      // token = await AsyncStorage.setItem(
+      //   AppConstants.AUTH_TOKEN,
+      //   idTokenResult?.token ?? ''
+      // );
+    }
+    if (!token) {
+      token = '';
+    }
+  } catch (err) {
+    console.log(err, 'err');
+
+    token = await AsyncStorage.getItem(AppConstants.API_AUTH_TOKEN);
+  }
+  request.headers.Authorization = `Bearer ${token}`;
+  // request.params = {
+  //   ...request.params,
+  //   access_token: token,
+  // };
+});
+
+export { AuthorizedAPI, UnauthorizedAPI, ProjectAuthorizedAPI };

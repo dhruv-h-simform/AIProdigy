@@ -1,17 +1,45 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { FlatList } from 'native-base';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { CustomButton } from '../../components';
+import { NavigationRoutes } from '../../constants';
 import { useAppNavigation } from '../../hooks';
-import { NavigationRoutes, Strings } from '../../constants';
-import { toastRef } from '../../configs';
 import { ScreenLayout } from '../../layouts';
+import { useAppDispatch, useAppSelector } from '../../redux';
+import { generateAccessToken } from '../../redux/authentication';
+import { getPortals } from '../../redux/project';
 
 const HomeScreen = () => {
   const { navigate } = useAppNavigation();
+  const dispatch = useAppDispatch();
+  const { portals } = useAppSelector(state => state.project);
+  useEffect(() => {
+    dispatch(generateAccessToken()).then(() => {
+      dispatch(getPortals());
+    });
+  }, []);
+
+  const renderItem = (props: any) => {
+    const { item } = props;
+    return (
+      <CustomButton
+        title={`${item.name}`}
+        onPress={() => navigate(NavigationRoutes.Details, { id: item?.id })}
+        style={{ margin: 10 }}
+      />
+    );
+  };
+
   return (
     <ScreenLayout>
       <View style={{ flex: 1, justifyContent: 'center' }}>
-        <Text>{Strings.HomeScreen}</Text>
-        <View style={{ marginTop: 20 }}>
+        <Text style={{ marginTop: 50, textAlign: 'center' }}>Portals</Text>
+        <FlatList
+          data={portals}
+          renderItem={renderItem}
+          keyExtractor={(item: any) => item.id}
+        />
+        {/* <View style={{ marginTop: 20 }}>
           <Button
             onPress={() => navigate(NavigationRoutes.Details)}
             title={'go to details'}
@@ -24,7 +52,7 @@ const HomeScreen = () => {
         <Button
           onPress={() => toastRef.current?.error('Error')}
           title={'Test Toast Error!'}
-        />
+        /> */}
       </View>
     </ScreenLayout>
   );

@@ -2,6 +2,7 @@ export default {
   Details: '/details',
   TestingComponent: '/testing-component',
   Home: '/home',
+  Projects: '/projects',
   Actions: '/actions',
   Meeting: '/meeting',
   Profile: '/profile',
