@@ -1,6 +1,6 @@
 export interface StoryInitialStateType {
   loading: boolean;
-  listOfTask: Array<String>;
+  listOfTask: string[];
   error: boolean;
 }
 

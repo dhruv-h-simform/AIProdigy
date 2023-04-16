@@ -5,6 +5,8 @@ import { CustomButton, CustomTextInput } from '../../components';
 import { ScreenLayout } from '../../layouts';
 import { useAppDispatch, useAppSelector } from '../../redux';
 import { generateUserStories } from '../../redux/userStories';
+import { createTasks } from '../../redux/project';
+import { useRoute } from '@react-navigation/core';
 
 const renderItem = ({ item }: any) => {
   return (
@@ -22,8 +24,15 @@ const renderItem = ({ item }: any) => {
 };
 const CreateUserStories = () => {
   const [query, setQuery] = useState('');
+  const route = useRoute();
+  // @ts-ignore
+  const portal = route?.params?.portal;
+  // @ts-ignore
+  const project = route?.params?.project;
+  const { login_id } = useAppSelector(state => state.project);
   const dispatch = useAppDispatch();
   const { listOfTask } = useAppSelector(state => state.userStory);
+  // const listOfTask = ['Hello World', 'Nice App'];
   const taskList = useMemo(
     () =>
       listOfTask?.map(item => {
@@ -52,6 +61,25 @@ const CreateUserStories = () => {
           data={taskList}
           renderItem={renderItem}
         />
+        {listOfTask?.length > 0 && (
+          <CustomButton
+            title="Create All task"
+            onPress={() => {
+              listOfTask.forEach(taskName => {
+                dispatch(
+                  createTasks({
+                    name: taskName ?? '',
+                    portalId: portal?.id_string,
+                    projectId: project?.id_string,
+                    person_responsible: Number(login_id),
+                  }),
+                ).then(res => {
+                  console.log('createTaskscreateTaskscreateTasks', res);
+                });
+              });
+            }}
+          />
+        )}
       </Stack>
     </ScreenLayout>
   );

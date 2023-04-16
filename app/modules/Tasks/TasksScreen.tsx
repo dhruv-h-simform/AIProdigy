@@ -1,4 +1,4 @@
-import { useRoute } from '@react-navigation/core';
+import { useRoute, useIsFocused } from '@react-navigation/core';
 import { FlatList } from 'native-base';
 import React, { useEffect } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
@@ -52,9 +52,10 @@ const TasksScreen = () => {
     });
   };
 
+  const isFocus = useIsFocused();
   useEffect(() => {
     getAllTasks(portal?.id_string, project?.id_string);
-  }, [portal]);
+  }, [portal, isFocus]);
 
   const getAllTasks = (id: string, projectId: string) => {
     // Get All Projects
@@ -96,7 +97,12 @@ const TasksScreen = () => {
         </View>
         <Button onPress={createNewTask} title={'Create New Task'} />
         <Button
-          onPress={() => navigate(NavigationRoutes.UserStories)}
+          onPress={() =>
+            navigate(NavigationRoutes.UserStories, {
+              portal: portal,
+              project: project,
+            })
+          }
           title={'Create New Stories'}
         />
       </View>
