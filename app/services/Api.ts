@@ -17,6 +17,16 @@ const getApiInstance = (baseURL: string) => {
   });
 };
 
+const getUserStoriesApiInstant = () => {
+  return apisauce.create({
+    baseURL: AppConstants.USER_STORIES_BASE_URL,
+    timeout: 30000,
+    headers: {
+      'Cache-Control': 'no-cache',
+      'Content-Type': 'application/json',
+    },
+  });
+};
 //Multiple instance based on authentication requirement
 const protectedApiClient = (baseURL: string) => getApiInstance(baseURL);
 const apiClient = (baseURL: string) => getApiInstance(baseURL);
@@ -147,4 +157,9 @@ ProjectAuthorizedAPI.addAsyncRequestTransform(async request => {
   // };
 });
 
-export { AuthorizedAPI, UnauthorizedAPI, ProjectAuthorizedAPI };
+export {
+  AuthorizedAPI,
+  UnauthorizedAPI,
+  ProjectAuthorizedAPI,
+  getUserStoriesApiInstant,
+};

@@ -7,6 +7,7 @@ import { CustomTabIcon } from '../components';
 import { NavigationRoutes, Strings } from '../constants';
 import {
   ActionsScreen,
+  CreateUserStories,
   HomeScreen,
   MeetingScreen,
   ProfileScreen,
@@ -32,6 +33,10 @@ const HomeStackContainer = () => {
         component={ProjectsScreen}
       />
       <Stack.Screen name={NavigationRoutes.Task} component={TasksScreen} />
+      <Stack.Screen
+        name={NavigationRoutes.UserStories}
+        component={CreateUserStories}
+      />
     </Stack.Navigator>
   );
 };

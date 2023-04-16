@@ -14,4 +14,7 @@ export default {
   logout: {
     logout: 'token/revoke?token=',
   },
+  userStories: {
+    generateUserStories: 'api/tasks/generate',
+  },
 };

@@ -7,6 +7,7 @@ import ProfileScreen from './Profile';
 import { LoginScreen } from './Auth';
 import SplashScreen from './SplashScreen';
 import TasksScreen from './Tasks';
+import { CreateUserStories } from './UserStories';
 
 export {
   HomeScreen,
@@ -18,4 +19,5 @@ export {
   LoginScreen,
   SplashScreen,
   TasksScreen,
+  CreateUserStories,
 };

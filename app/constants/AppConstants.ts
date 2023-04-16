@@ -1,6 +1,7 @@
 export default {
   BASE_URL: 'https://accounts.zoho.com/oauth/v2/',
   PROJECT_BASE_URL: 'https://projectsapi.zoho.com/restapi/',
+  USER_STORIES_BASE_URL: 'https://836c-27-56-182-121.ngrok-free.app/',
   AUTH_TOKEN: 'token',
   API_AUTH_TOKEN: 'access-token',
   ZOHO_PERMISSION_SCOPE:
