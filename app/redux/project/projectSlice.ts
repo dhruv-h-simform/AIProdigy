@@ -13,6 +13,7 @@ const initialState: ProjectInitialStateType = {
   portals: [],
   projects: [],
   tasks: [],
+  login_id: undefined,
 };
 
 export const projectSlice = createSlice({
@@ -23,6 +24,7 @@ export const projectSlice = createSlice({
     builder.addCase(getPortals.pending, (state: ProjectInitialStateType) => {
       state.loading = true;
       state.error = false;
+      state.login_id = undefined;
     });
     builder.addCase(
       getPortals.fulfilled,
@@ -33,6 +35,7 @@ export const projectSlice = createSlice({
         state.loading = false;
         state.error = false;
         state.portals = action.payload.portals;
+        state.login_id = action.payload.login_id;
       },
     );
     builder.addCase(getPortals.rejected, (state: ProjectInitialStateType) => {
