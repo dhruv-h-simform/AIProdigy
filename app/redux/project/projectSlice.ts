@@ -4,6 +4,7 @@ import {
   type ProjectDataResponse,
   type ProjectInitialStateType,
   type ProjectsDataResponse,
+  type TasksDataResponse,
 } from './types';
 
 const initialState: ProjectInitialStateType = {
@@ -69,7 +70,7 @@ export const projectSlice = createSlice({
       getTasks.fulfilled,
       (
         state: ProjectInitialStateType,
-        action: PayloadAction<ProjectsDataResponse> & ProjectInitialStateType,
+        action: PayloadAction<TasksDataResponse> & ProjectInitialStateType,
       ) => {
         state.loading = false;
         state.error = false;
