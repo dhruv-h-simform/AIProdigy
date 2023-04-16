@@ -19,6 +19,7 @@ const config = {
     [NavigationRoutes.Login]: 'login',
     [NavigationRoutes.SplashScreen]: 'splash-screen',
     [NavigationRoutes.Task]: 'task',
+    [NavigationRoutes.UserStories]: 'user-stories',
   },
 };
 

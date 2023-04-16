@@ -14,4 +14,5 @@ export default {
   BottomTabs: '/bottom-tabs',
   Login: '/login',
   SplashScreen: '/splash-screen',
+  UserStories: '/user-stories',
 };

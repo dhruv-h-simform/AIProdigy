@@ -95,6 +95,10 @@ const TasksScreen = () => {
           />
         </View>
         <Button onPress={createNewTask} title={'Create New Task'} />
+        <Button
+          onPress={() => navigate(NavigationRoutes.UserStories)}
+          title={'Create New Stories'}
+        />
       </View>
     </ScreenLayout>
   );
