@@ -1,15 +1,19 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { type ITextProps, Text, useColorMode } from 'native-base';
+import { Text, useColorMode, type ITextProps } from 'native-base';
 import React from 'react';
+import { icons } from '../assets';
 import { CustomTabIcon } from '../components';
 import { NavigationRoutes, Strings } from '../constants';
-import { ActionsScreen, DetailsScreen, HomeScreen } from '../modules';
-import styles from './styles/TabNavigationStyles';
-import { MeetingScreen } from '../modules';
-import { ProfileScreen } from '../modules';
-import { icons } from '../assets';
+import {
+  ActionsScreen,
+  HomeScreen,
+  MeetingScreen,
+  ProfileScreen,
+  TasksScreen,
+} from '../modules';
 import ProjectsScreen from '../modules/Projects';
+import styles from './styles/TabNavigationStyles';
 
 interface CustomTabTextProps extends ITextProps {
   focused?: boolean;
@@ -27,6 +31,7 @@ const HomeStackContainer = () => {
         name={NavigationRoutes.Details}
         component={ProjectsScreen}
       />
+      <Stack.Screen name={NavigationRoutes.Task} component={TasksScreen} />
     </Stack.Navigator>
   );
 };

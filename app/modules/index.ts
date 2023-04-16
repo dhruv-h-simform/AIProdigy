@@ -6,6 +6,7 @@ import MeetingScreen from './Meeting';
 import ProfileScreen from './Profile';
 import { LoginScreen } from './Auth';
 import SplashScreen from './SplashScreen';
+import TasksScreen from './Tasks';
 
 export {
   HomeScreen,
@@ -16,4 +17,5 @@ export {
   ProfileScreen,
   LoginScreen,
   SplashScreen,
+  TasksScreen,
 };

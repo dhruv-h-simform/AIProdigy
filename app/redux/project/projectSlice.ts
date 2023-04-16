@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { getPortals, getProjects } from './service';
+import { getPortals, getProjects, getTasks } from './service';
 import {
   type ProjectDataResponse,
   type ProjectInitialStateType,
@@ -11,6 +11,7 @@ const initialState: ProjectInitialStateType = {
   error: false,
   portals: [],
   projects: [],
+  tasks: [],
 };
 
 export const projectSlice = createSlice({
@@ -55,6 +56,27 @@ export const projectSlice = createSlice({
       },
     );
     builder.addCase(getProjects.rejected, (state: ProjectInitialStateType) => {
+      state.loading = false;
+      state.error = true;
+    });
+
+    builder.addCase(getTasks.pending, (state: ProjectInitialStateType) => {
+      state.loading = true;
+      state.error = false;
+      state.tasks = [];
+    });
+    builder.addCase(
+      getTasks.fulfilled,
+      (
+        state: ProjectInitialStateType,
+        action: PayloadAction<ProjectsDataResponse> & ProjectInitialStateType,
+      ) => {
+        state.loading = false;
+        state.error = false;
+        state.tasks = action.payload.tasks;
+      },
+    );
+    builder.addCase(getTasks.rejected, (state: ProjectInitialStateType) => {
       state.loading = false;
       state.error = true;
     });

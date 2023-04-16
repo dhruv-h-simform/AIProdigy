@@ -7,25 +7,32 @@ import { NavigationRoutes, Strings } from '../../constants';
 import { useAppNavigation } from '../../hooks';
 import { ScreenLayout } from '../../layouts';
 import { useAppDispatch, useAppSelector } from '../../redux';
-import { createProjects, getProjects } from '../../redux/project';
+import {
+  createProjects,
+  createTasks,
+  getProjects,
+  getTasks,
+} from '../../redux/project';
 
-const ProjectsScreen = () => {
+const TasksScreen = () => {
   const route = useRoute();
   //@ts-ignore
-  const portal = route?.params?.item;
+  const portal = route?.params?.portal;
+  const project = route?.params?.project;
   const { navigate } = useAppNavigation();
   const dispatch = useAppDispatch();
-  const { projects } = useAppSelector(state => state.project);
+  const { tasks } = useAppSelector(state => state.project);
 
-  const createNewProject = () => {
+  const createNewTask = () => {
     // Create Project
     dispatch(
-      createProjects({
-        name: 'Demo Project AI',
+      createTasks({
+        name: 'First Demo Task with AI',
         // project_rate: 20,
         // bill_status: 'Billable',
         // public: false,
         portalId: portal?.id,
+        projectId: project?.id,
         // // owner: undefined,
         // description: 'This is demo project',
         // template_id: 0,
@@ -39,16 +46,20 @@ const ProjectsScreen = () => {
         // threshold: 10000,
         // currency: 'USD',
       }),
-    );
+    ).then(res => {
+      console.log('createTaskscreateTaskscreateTasks', res);
+    });
   };
 
   useEffect(() => {
-    getAllProjects(portal?.id);
-  }, [portal?.id]);
+    getAllTasks(portal?.id_string, project?.id_string);
+  }, [portal]);
 
-  const getAllProjects = (id: string) => {
+  const getAllTasks = (id: string, projectId: string) => {
     // Get All Projects
-    dispatch(getProjects({ portalId: id })).then(() => {});
+    dispatch(getTasks({ portalId: id, projectId: projectId })).then(res => {
+      console.log('resresresresresres', res);
+    });
   };
 
   const renderItem = (props: any) => {
@@ -56,9 +67,7 @@ const ProjectsScreen = () => {
     return (
       <CustomButton
         title={`${item.name}`}
-        onPress={() =>
-          navigate(NavigationRoutes.Task, { portal: portal, project: item })
-        }
+        // onPress={() => getAllProjects(item?.id_string)}
         style={{ margin: 10 }}
       />
     );
@@ -71,12 +80,12 @@ const ProjectsScreen = () => {
           style={{
             marginTop: 50,
             textAlign: 'center',
-          }}>{`${portal?.name} Projects`}</Text>
+          }}>{`${project?.name} Projects`}</Text>
         <FlatList
           style={{ marginTop: 30 }}
-          data={projects}
+          data={tasks}
           renderItem={renderItem}
-          keyExtractor={(item: any) => item.id}
+          keyExtractor={(item: any) => item?.id_string}
         />
         <View style={{ marginTop: 20 }}>
           <Button
@@ -84,12 +93,12 @@ const ProjectsScreen = () => {
             title={'Go to back'}
           />
         </View>
-        <Button onPress={createNewProject} title={'Create New Project'} />
+        <Button onPress={createNewTask} title={'Create New Task'} />
       </View>
     </ScreenLayout>
   );
 };
 
-export default ProjectsScreen;
+export default TasksScreen;
 
 const styles = StyleSheet.create({});

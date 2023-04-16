@@ -24,7 +24,7 @@ const HomeScreen = () => {
     return (
       <CustomButton
         title={`${item.name}`}
-        onPress={() => navigate(NavigationRoutes.Details, { id: item?.id })}
+        onPress={() => navigate(NavigationRoutes.Details, { item: item })}
         style={{ margin: 10 }}
       />
     );
