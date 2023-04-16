@@ -71,7 +71,9 @@ export const getTasks = createAsyncThunk(
   async (payload: ProListProps, { rejectWithValue }) => {
     try {
       const url = `${ApiUrls.home.portal}${payload?.portalId}/${ApiUrls.home.projects}${payload?.projectId}/${ApiUrls.home.tasks}`;
-      const { data, ok } = await ProjectAuthorizedAPI.get<any, any>(url);
+      const { data, ok } = await ProjectAuthorizedAPI.get<any, any>(url, {
+        sort_column: 'last_modified_time',
+      });
       if (!ok) {
         return rejectWithValue(data);
       }

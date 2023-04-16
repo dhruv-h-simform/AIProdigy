@@ -4,10 +4,11 @@ export interface ProjectInitialStateType {
   portals: Portal[];
   projects: Portal[];
   tasks: Task[];
+  login_id?: string;
 }
 
 export interface ProjectDataResponse {
-  login_id: string;
+  login_id?: string;
   portals: Portal[];
 }
 

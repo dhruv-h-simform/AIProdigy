@@ -21,7 +21,7 @@ const TasksScreen = () => {
   const project = route?.params?.project;
   const { navigate } = useAppNavigation();
   const dispatch = useAppDispatch();
-  const { tasks } = useAppSelector(state => state.project);
+  const { tasks, login_id } = useAppSelector(state => state.project);
 
   const createNewTask = () => {
     // Create Project
@@ -33,6 +33,7 @@ const TasksScreen = () => {
         // public: false,
         portalId: portal?.id_string,
         projectId: project?.id_string,
+        person_responsible: Number(login_id),
         // // owner: undefined,
         // description: 'This is demo project',
         // template_id: 0,
