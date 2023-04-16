@@ -9,6 +9,7 @@ export default {
     portals: 'portals/',
     portal: 'portal/',
     projects: 'projects/',
+    tasks: 'tasks/',
   },
   logout: {
     logout: 'token/revoke?token=',

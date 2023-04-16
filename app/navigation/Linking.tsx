@@ -1,8 +1,7 @@
-import { type LinkingOptions } from '@react-navigation/native';
-import { AppConstants, NavigationRoutes } from '../constants';
-import { Linking } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useAppDispatch } from '../redux';
+import { type LinkingOptions } from '@react-navigation/native';
+import { Linking } from 'react-native';
+import { AppConstants, NavigationRoutes } from '../constants';
 
 const config = {
   screens: {
@@ -19,6 +18,7 @@ const config = {
     [NavigationRoutes.Profile]: 'profile',
     [NavigationRoutes.Login]: 'login',
     [NavigationRoutes.SplashScreen]: 'splash-screen',
+    [NavigationRoutes.Task]: 'task',
   },
 };
 

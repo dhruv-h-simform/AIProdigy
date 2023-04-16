@@ -3,6 +3,7 @@ export interface ProjectInitialStateType {
   error: boolean;
   portals: Portal[];
   projects: Portal[];
+  tasks: Portal[];
 }
 
 export interface ProjectDataResponse {
@@ -210,6 +211,7 @@ export interface Timesheet {
 
 export interface ProListProps {
   portalId?: string | undefined;
+  projectId?: string | undefined;
 }
 
 export interface CreateProjectProps {
@@ -230,4 +232,23 @@ export interface CreateProjectProps {
   bill_status?: string; //Acceptable values: Billable and Non billable.
   public?: boolean;
   group_id?: number;
+}
+
+export interface CreateTaskProps {
+  name: string;
+  portalId?: string | undefined;
+  projectId?: string | undefined;
+  person_responsible?: number;
+  start_date?: String; // [MM-DD-YYYY]	Start date of the task.
+  end_date?: String; // [MM-DD-YYYY]	End date of the task. You must also provide the start_date value to update end_date.
+  duration?: number; //	Duration of the task.
+  duration_type?: String; //	Duration of the task type in days or hrs.
+  priority?: String; //	Priority of the task must be None or Low or Medium or High.
+  description?: String; //	Description for the task.
+  start_time?: String; //	Start time can be specified in either 12 hour or 24 hour format. Eg. 01:00 pm or 13:00
+  end_time?: String; //	End time can be specified in either 12 hour or 24 hour format. Eg. 09:00 pm or 21:00
+  Note?: string; //person_responsible parameter is mandatory to add owner_work
+  work_type?: String; //	Allocate work_hrs_per_day or work_in_percentage or work_hours.
+  rate_per_hour?: number; //	Specify rate per hour if your billing method is based on task hours.
+  completed_on?: String; // [MM-DD-YYYY]	Completed date of the task.
 }
