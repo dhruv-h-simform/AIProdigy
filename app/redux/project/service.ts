@@ -144,6 +144,9 @@ export const createTasks = createAsyncThunk(
     try {
       const url = `${ApiUrls.home.portal}${payload?.portalId}/${ApiUrls.home.projects}${payload?.projectId}/${ApiUrls.home.tasks}`;
 
+      delete payload?.portalId;
+      delete payload?.projectId;
+
       const config: AxiosRequestConfig = {
         baseURL: AppConstants.PROJECT_BASE_URL,
         method: 'post',
@@ -158,7 +161,7 @@ export const createTasks = createAsyncThunk(
         data: payload,
       };
       const { data, ok } = await ProjectAuthorizedAPI.post<any, any>(
-        `${ApiUrls.home.portal}${payload?.portalId}/${ApiUrls.home.projects}`,
+        url,
         objToFormData(payload),
         config,
       );
