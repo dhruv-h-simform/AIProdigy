@@ -54,9 +54,11 @@ const CreateUserStories = () => {
   // const listOfTask = ['Hello World 2', 'Nice App 3'];
   const taskList = useMemo(
     () =>
-      listOfTask?.map(item => {
-        return item?.replace(/^\d+\.\s*/, '');
-      }),
+      listOfTask
+        ?.map(item => {
+          return item?.replace(/^\d+\.\s*/, '');
+        })
+        .filter(item => item !== ''),
     [listOfTask],
   );
 
@@ -90,45 +92,48 @@ const CreateUserStories = () => {
           isDisabled={genTaskLoader}
           onPress={() => {
             setGenTaskLoader(true);
+            setSelectAll(false);
             dispatch(generateUserStories({ userStory: query })).then(item =>
               setGenTaskLoader(false),
             );
           }}
         />
         {genTaskLoader && <Spinner accessibilityLabel="Loading tasks" />}
-        <Checkbox
-          width={'90%'}
-          borderColor={'app.black.light'}
-          _dark={{
-            borderColor: 'app.white.light',
-            backgroundColor: 'app.white.dark',
-          }}
-          _hover={{
-            borderColor: 'app.primary.light',
-          }}
-          _checked={{
-            backgroundColor: 'app.primary.light',
-            borderColor: 'app.primary.light',
-            _hover: { borderColor: 'app.black.light' },
-          }}
-          _text={{
-            fontSize: [14, 17],
-            lineHeight: [14, 17],
-            color: useColorModeValue(Colors.white.dark, Colors.white.light),
-          }}
-          value={'Select All'}
-          my={1}
-          key={Math.random()}
-          size={'sm'}
-          isChecked={selectAll}
-          onChange={isChange => {
-            setSelectAll(isChange);
-          }}
-          icon={
-            <Image alt="checkBox-img" source={icons.checkIcon} size={[10]} />
-          }>
-          Select All
-        </Checkbox>
+        {listArrayData?.length > 0 && (
+          <Checkbox
+            width={'90%'}
+            borderColor={'app.black.light'}
+            _dark={{
+              borderColor: 'app.white.light',
+              backgroundColor: 'app.white.dark',
+            }}
+            _hover={{
+              borderColor: 'app.primary.light',
+            }}
+            _checked={{
+              backgroundColor: 'app.primary.light',
+              borderColor: 'app.primary.light',
+              _hover: { borderColor: 'app.black.light' },
+            }}
+            _text={{
+              fontSize: [14, 17],
+              lineHeight: [14, 17],
+              color: useColorModeValue(Colors.white.dark, Colors.white.light),
+            }}
+            value={'Select All'}
+            my={1}
+            key={Math.random()}
+            size={'sm'}
+            isChecked={selectAll}
+            onChange={isChange => {
+              setSelectAll(isChange);
+            }}
+            icon={
+              <Image alt="checkBox-img" source={icons.checkIcon} size={[10]} />
+            }>
+            Select All
+          </Checkbox>
+        )}
         <ScrollView>
           <CustomCheckbox
             checkboxData={listArrayData}

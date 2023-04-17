@@ -10,4 +10,5 @@ export default {
   attachment: require('./attachment.png'),
   cancel: require('./cancel.png'),
   checkIcon: require('./checkIcon.png'),
+  logo: require('./logo.png'),
 };

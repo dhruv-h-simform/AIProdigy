@@ -8,6 +8,8 @@ import { ScreenLayout } from '../../layouts';
 import { useAppDispatch, useAppSelector } from '../../redux';
 import { generateAccessToken } from '../../redux/authentication';
 import { getPortals } from '../../redux/project';
+import CustomImage from '../../components/CustomImage';
+import { icons } from '../../assets';
 
 const HomeScreen = () => {
   const { navigate } = useAppNavigation();
@@ -34,6 +36,14 @@ const HomeScreen = () => {
     <ScreenLayout>
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <Text style={{ marginTop: 50, textAlign: 'center' }}>Portals</Text>
+        <CustomImage
+          source={icons.logo}
+          src={icons.logo}
+          alt=""
+          height={100}
+          mx={'32%'}
+          resizeMode="contain"
+        />
         {loading && <Spinner mt={20} accessibilityLabel="Loading Portals" />}
         <FlatList
           data={portals}
