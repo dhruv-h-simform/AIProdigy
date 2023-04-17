@@ -1,0 +1,9 @@
+{
+  "common": {
+    "Home": "Home",
+    "Details": "Details"
+  },
+  "homeScreen": {
+    "welcome": "Hola!"
+  }
+}

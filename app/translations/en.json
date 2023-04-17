@@ -1,0 +1,12 @@
+{
+  "common": {
+    "home": "Home",
+    "details": "Details",
+    "profile": "Profile",
+    "action ": "Actions",
+    "meeting": "Meeting"
+  },
+  "homeScreen": {
+    "welcome": "Welcome"
+  }
+}
