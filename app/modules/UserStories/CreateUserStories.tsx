@@ -1,12 +1,18 @@
-import { FlatList, Stack, Text } from 'native-base';
-import React, { useMemo, useState } from 'react';
+import { useRoute } from '@react-navigation/core';
+import { ScrollView, Spinner, Stack, Text } from 'native-base';
+import React, { useEffect, useMemo, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { CustomButton, CustomTextInput } from '../../components';
+import {
+  CustomButton,
+  CustomCheckbox,
+  CustomTextInput,
+} from '../../components';
 import { ScreenLayout } from '../../layouts';
 import { useAppDispatch, useAppSelector } from '../../redux';
-import { generateUserStories } from '../../redux/userStories';
 import { createTasks } from '../../redux/project';
-import { useRoute } from '@react-navigation/core';
+import { generateUserStories, resetTaskList } from '../../redux/userStories';
+import { useAppNavigation } from '../../hooks';
+import { toastRef } from '../../configs';
 
 const renderItem = ({ item }: any) => {
   return (
@@ -17,9 +23,7 @@ const renderItem = ({ item }: any) => {
       marginY={2}
       borderRadius={10}
       borderColor="app.primary.light"
-      shadow={4}>
-      <Text variant={'medium'}>{item}</Text>
-    </Stack>
+      shadow={4}></Stack>
   );
 };
 const CreateUserStories = () => {
@@ -31,8 +35,12 @@ const CreateUserStories = () => {
   const project = route?.params?.project;
   const { login_id } = useAppSelector(state => state.project);
   const dispatch = useAppDispatch();
+  const { back } = useAppNavigation();
   const { listOfTask } = useAppSelector(state => state.userStory);
-  // const listOfTask = ['Hello World', 'Nice App'];
+  const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
+  const [genTaskLoader, setGenTaskLoader] = useState<boolean>(false);
+  const [loader, setLoader] = useState<boolean>(false);
+  // const listOfTask = ['Hello World 2', 'Nice App 3'];
   const taskList = useMemo(
     () =>
       listOfTask?.map(item => {
@@ -41,10 +49,22 @@ const CreateUserStories = () => {
     [listOfTask],
   );
 
+  const listArrayData = useMemo(
+    () =>
+      taskList?.map(item => {
+        return { value: item, label: item };
+      }),
+    [listOfTask],
+  );
+
+  useEffect(() => {
+    dispatch(resetTaskList());
+  }, []);
+
   return (
     <ScreenLayout>
       <Stack mt={50} flex={1} marginX={4} space={4}>
-        <Text alignSelf={'center'}>CreateUserStories</Text>
+        <Text alignSelf={'center'}>Create User Stories</Text>
         <CustomTextInput
           placeholder="give your prompts"
           value={query}
@@ -52,31 +72,55 @@ const CreateUserStories = () => {
         />
         <CustomButton
           title="Generate task"
+          isDisabled={genTaskLoader}
           onPress={() => {
-            dispatch(generateUserStories({ userStory: query }));
+            setGenTaskLoader(true);
+            dispatch(generateUserStories({ userStory: query })).then(item =>
+              setGenTaskLoader(false),
+            );
           }}
         />
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={taskList}
-          renderItem={renderItem}
-        />
-        {listOfTask?.length > 0 && (
+        {genTaskLoader && <Spinner accessibilityLabel="Loading tasks" />}
+        <ScrollView>
+          <CustomCheckbox
+            checkboxData={listArrayData}
+            value={selectedTasks}
+            checkboxProps={{ size: 'sm' }}
+            onChange={values => {
+              setSelectedTasks(values);
+            }}
+          />
+        </ScrollView>
+        {selectedTasks?.length > 0 && (
           <CustomButton
-            title="Create All task"
+            title="Add selected tasks"
+            mx={10}
+            mb={4}
+            isLoading={loader}
+            isDisabled={loader}
             onPress={() => {
-              listOfTask.forEach(taskName => {
-                dispatch(
-                  createTasks({
-                    name: taskName ?? '',
-                    portalId: portal?.id_string,
-                    projectId: project?.id_string,
-                    person_responsible: Number(login_id),
-                  }),
-                ).then(res => {
-                  console.log('createTaskscreateTaskscreateTasks', res);
-                });
-              });
+              setLoader(true);
+              Promise.all(
+                selectedTasks.map(taskName =>
+                  dispatch(
+                    createTasks({
+                      name: taskName ?? '',
+                      portalId: portal?.id_string,
+                      projectId: project?.id_string,
+                      person_responsible: Number(login_id),
+                    }),
+                  ).then(r => r),
+                ),
+              )
+                .then(([stats, info]) => {
+                  setLoader(false);
+                  console.log('statsstatsstats', stats);
+                  toastRef.current?.success(
+                    'All the selected task is created successfully.',
+                  );
+                  back();
+                })
+                .catch(error => setLoader(false));
             }}
           />
         )}

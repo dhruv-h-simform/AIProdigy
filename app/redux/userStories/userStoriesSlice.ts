@@ -11,13 +11,18 @@ const initialState: StoryInitialStateType = {
 export const userStoriesSlice = createSlice({
   name: 'userStories',
   initialState,
-  reducers: {},
+  reducers: {
+    resetTaskList: state => {
+      state.listOfTask = [];
+    },
+  },
   extraReducers: builder => {
     builder.addCase(
       generateUserStories.pending,
       (state: StoryInitialStateType) => {
         state.loading = true;
         state.error = false;
+        state.listOfTask = [];
       },
     );
     builder.addCase(
@@ -38,6 +43,6 @@ export const userStoriesSlice = createSlice({
   },
 });
 
-export const {} = userStoriesSlice.actions;
+export const { resetTaskList } = userStoriesSlice.actions;
 
 export default userStoriesSlice.reducer;

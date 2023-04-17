@@ -1,4 +1,4 @@
-import { FlatList } from 'native-base';
+import { FlatList, Spinner } from 'native-base';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { CustomButton } from '../../components';
@@ -12,7 +12,7 @@ import { getPortals } from '../../redux/project';
 const HomeScreen = () => {
   const { navigate } = useAppNavigation();
   const dispatch = useAppDispatch();
-  const { portals } = useAppSelector(state => state.project);
+  const { loading, portals } = useAppSelector(state => state.project);
   useEffect(() => {
     dispatch(generateAccessToken()).then(() => {
       dispatch(getPortals());
@@ -34,6 +34,7 @@ const HomeScreen = () => {
     <ScreenLayout>
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <Text style={{ marginTop: 50, textAlign: 'center' }}>Portals</Text>
+        {loading && <Spinner mt={20} accessibilityLabel="Loading Portals" />}
         <FlatList
           data={portals}
           renderItem={renderItem}

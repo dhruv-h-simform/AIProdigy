@@ -7,6 +7,7 @@ export default {
   Actions: '/actions',
   Meeting: '/meeting',
   Profile: '/profile',
+  CreateProjectScreen: '/CreateProjectScreen',
   HomeStackContainer: '/home-stack-container',
   ActionsStackContainer: '/actions-stack-container',
   MeetingStackContainer: '/meeting-stack-container',

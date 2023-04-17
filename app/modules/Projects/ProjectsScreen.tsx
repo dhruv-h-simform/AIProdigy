@@ -1,50 +1,26 @@
-import { useRoute } from '@react-navigation/core';
-import { FlatList } from 'native-base';
+import { useIsFocused, useRoute } from '@react-navigation/core';
+import { FlatList, Spinner } from 'native-base';
 import React, { useEffect } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { CustomButton } from '../../components';
-import { NavigationRoutes, Strings } from '../../constants';
+import { NavigationRoutes } from '../../constants';
 import { useAppNavigation } from '../../hooks';
 import { ScreenLayout } from '../../layouts';
 import { useAppDispatch, useAppSelector } from '../../redux';
-import { createProjects, getProjects } from '../../redux/project';
+import { getProjects } from '../../redux/project';
 
 const ProjectsScreen = () => {
   const route = useRoute();
   //@ts-ignore
   const portal = route?.params?.item;
+  const isFocus = useIsFocused();
   const { navigate } = useAppNavigation();
   const dispatch = useAppDispatch();
-  const { projects } = useAppSelector(state => state.project);
-
-  const createNewProject = () => {
-    // Create Project
-    dispatch(
-      createProjects({
-        name: 'Demo Project AI',
-        // project_rate: 20,
-        // bill_status: 'Billable',
-        // public: false,
-        portalId: portal?.id,
-        // // owner: undefined,
-        // description: 'This is demo project',
-        // template_id: 0,
-        // group_id: 2108785000000018001,
-        // start_date: '04/16/2023',
-        // end_date: '04/16/2025',
-        // strict_project: '1',
-        // field_id: 'UDF_MULTI1',
-        // budget_type: 6,
-        // budget_value: 20000,
-        // threshold: 10000,
-        // currency: 'USD',
-      }),
-    );
-  };
+  const { loading, projects } = useAppSelector(state => state.project);
 
   useEffect(() => {
     getAllProjects(portal?.id);
-  }, [portal?.id]);
+  }, [portal?.id, isFocus]);
 
   const getAllProjects = (id: string) => {
     // Get All Projects
@@ -72,6 +48,7 @@ const ProjectsScreen = () => {
             marginTop: 50,
             textAlign: 'center',
           }}>{`${portal?.name} Projects`}</Text>
+        {loading && <Spinner mt={20} accessibilityLabel="Loading Projects" />}
         <FlatList
           style={{ marginTop: 30 }}
           data={projects}
@@ -82,9 +59,16 @@ const ProjectsScreen = () => {
           <Button
             onPress={() => navigate(NavigationRoutes.Home)}
             title={'Go to back'}
+            style={{ margin: 10 }}
           />
         </View>
-        <Button onPress={createNewProject} title={'Create New Project'} />
+        <Button
+          onPress={() =>
+            navigate(NavigationRoutes.CreateProjectScreen, { portal: portal })
+          }
+          title={'Create New Project'}
+          style={{ margin: 10 }}
+        />
       </View>
     </ScreenLayout>
   );
