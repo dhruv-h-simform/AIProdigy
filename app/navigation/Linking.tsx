@@ -27,7 +27,7 @@ const config = {
 export function getLinkConfiguration(): LinkingOptions<Object> {
   const linking = {
     enabled: true,
-    prefixes: ['promanage://', 'http://localhost:3000/'],
+    prefixes: ['promanage://', 'http://localhost:3000/', '/'],
     subscribe(listener: any) {
       const linkingSubscription = Linking.addEventListener('url', ({ url }) => {
         console.log('urlurlurlurlurlurlurl', url);
