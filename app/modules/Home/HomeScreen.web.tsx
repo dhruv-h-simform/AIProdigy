@@ -2,22 +2,49 @@ import { FlatList, Spinner } from 'native-base';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { CustomButton } from '../../components';
-import { NavigationRoutes } from '../../constants';
+import { AppConstants, NavigationRoutes } from '../../constants';
 import { useAppNavigation } from '../../hooks';
 import { ScreenLayout } from '../../layouts';
 import { useAppDispatch, useAppSelector } from '../../redux';
 import { generateAccessToken } from '../../redux/authentication';
 import { getPortals } from '../../redux/project';
+import { useLocation } from 'react-router-dom';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getString } from '../../utils';
 
 const HomeScreen = () => {
   const { navigate } = useAppNavigation();
   const dispatch = useAppDispatch();
-  const { loading, portals } = useAppSelector(state => state.project);
+
+  const { search } = useLocation();
+  const parameters = new URLSearchParams(search);
+
+  const token = parameters.get('code');
+
   useEffect(() => {
-    dispatch(generateAccessToken()).then(() => {
-      dispatch(getPortals());
-    });
-  }, []);
+    if (token) {
+      AsyncStorage.setItem(AppConstants.AUTH_TOKEN, token).then(() => {
+        navigate(NavigationRoutes.BottomTabs);
+      });
+    }
+  }, [token]);
+
+  const { loading, portals } = useAppSelector(state => state.project);
+
+  const apiCall = async () => {
+    const authToken = await getString(AppConstants.AUTH_TOKEN);
+    if (authToken) {
+      dispatch(generateAccessToken()).then(() => {
+        dispatch(getPortals());
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (token === null) {
+      apiCall();
+    }
+  }, [token]);
 
   const renderItem = (props: any) => {
     const { item } = props;
