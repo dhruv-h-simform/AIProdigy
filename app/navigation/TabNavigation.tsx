@@ -15,6 +15,7 @@ import {
 } from '../modules';
 import ProjectsScreen from '../modules/Projects';
 import styles from './styles/TabNavigationStyles';
+import CreateProjectScreen from '../modules/CreateProject';
 
 interface CustomTabTextProps extends ITextProps {
   focused?: boolean;
@@ -31,6 +32,10 @@ const HomeStackContainer = () => {
       <Stack.Screen
         name={NavigationRoutes.Details}
         component={ProjectsScreen}
+      />
+      <Stack.Screen
+        name={NavigationRoutes.CreateProjectScreen}
+        component={CreateProjectScreen}
       />
       <Stack.Screen name={NavigationRoutes.Task} component={TasksScreen} />
       <Stack.Screen

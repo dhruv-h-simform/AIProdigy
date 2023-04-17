@@ -20,6 +20,7 @@ const config = {
     [NavigationRoutes.SplashScreen]: 'splash-screen',
     [NavigationRoutes.Task]: 'task',
     [NavigationRoutes.UserStories]: 'user-stories',
+    [NavigationRoutes.CreateProjectScreen]: 'CreateProjectScreen',
   },
 };
 

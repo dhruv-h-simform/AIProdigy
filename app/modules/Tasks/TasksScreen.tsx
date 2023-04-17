@@ -1,5 +1,5 @@
 import { useRoute, useIsFocused } from '@react-navigation/core';
-import { FlatList } from 'native-base';
+import { FlatList, Spinner } from 'native-base';
 import React, { useEffect } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { CustomButton } from '../../components';
@@ -19,9 +19,9 @@ const TasksScreen = () => {
   //@ts-ignore
   const portal = route?.params?.portal;
   const project = route?.params?.project;
-  const { navigate } = useAppNavigation();
+  const { navigate, back } = useAppNavigation();
   const dispatch = useAppDispatch();
-  const { tasks, login_id } = useAppSelector(state => state.project);
+  const { tasks, login_id, loading } = useAppSelector(state => state.project);
 
   const createNewTask = () => {
     // Create Project
@@ -82,7 +82,8 @@ const TasksScreen = () => {
           style={{
             marginTop: 50,
             textAlign: 'center',
-          }}>{`${project?.name} Projects`}</Text>
+          }}>{`${project?.name} Tasks`}</Text>
+        {loading && <Spinner mt={20} accessibilityLabel="Loading Tasks" />}
         <FlatList
           style={{ marginTop: 30 }}
           data={tasks}
@@ -90,10 +91,7 @@ const TasksScreen = () => {
           keyExtractor={(item: any) => item?.id_string}
         />
         <View style={{ marginTop: 20 }}>
-          <Button
-            onPress={() => navigate(NavigationRoutes.Home)}
-            title={'Go to back'}
-          />
+          <Button onPress={() => back()} title={'Go to back'} />
         </View>
         <Button onPress={createNewTask} title={'Create New Task'} />
         <Button

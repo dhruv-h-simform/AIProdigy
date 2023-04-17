@@ -9,4 +9,5 @@ export default {
   tune: require('./tune.png'),
   attachment: require('./attachment.png'),
   cancel: require('./cancel.png'),
+  checkIcon: require('./checkIcon.png'),
 };

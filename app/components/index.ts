@@ -6,7 +6,7 @@ import CustomImagePicker from './CustomImagePicker';
 import CustomTabIcon from './CustomTabIcon';
 import { CustomDropDown } from './CustomDropDown';
 import { CustomProgress } from './CustomProgress';
-
+import CustomCheckbox from './CustomCheckbox';
 export {
   BottomActionSheet,
   CustomButton,
@@ -17,4 +17,5 @@ export {
   CustomTextInput,
   CustomDropDown,
   CustomProgress,
+  CustomCheckbox,
 };
