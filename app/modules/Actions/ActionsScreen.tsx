@@ -4,7 +4,7 @@ import React from 'react';
 const ActionsScreen = () => {
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
-      <Text>ActionsScreen</Text>
+      <Text style={{ textAlign: 'center' }}>ActionsScreen</Text>
     </View>
   );
 };

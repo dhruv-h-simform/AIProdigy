@@ -4,7 +4,7 @@ import React from 'react';
 const MeetingScreen = () => {
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
-      <Text>Meeting</Text>
+      <Text style={{ textAlign: 'center' }}>Meeting</Text>
     </View>
   );
 };

@@ -5,9 +5,11 @@ import { useAppNavigation } from '../../hooks';
 import { AppConstants, NavigationRoutes } from '../../constants';
 import { remove } from '../../utils';
 import { ScreenLayout } from '../../layouts';
-import { Stack } from 'native-base';
+import { Stack, View } from 'native-base';
 import { useAppDispatch, useAppSelector } from '../../redux';
 import { doLogout } from '../../redux/authentication';
+import CustomImage from '../../components/CustomImage';
+import { icons } from '../../assets';
 
 const ProfileScreen = () => {
   const { replace } = useAppNavigation();
@@ -16,20 +18,32 @@ const ProfileScreen = () => {
 
   return (
     <ScreenLayout>
-      <Stack flex={1} justifyContent={'flex-end'} px={4} py={2}>
-        <Text>ProfileScreen</Text>
-        <CustomButton
-          title="Logout"
-          variant={'rounded_solid'}
-          isLoading={loading}
-          onPress={async () => {
-            dispatch(doLogout()).then(() => {
-              remove(AppConstants.AUTH_TOKEN).then(() => {
-                replace(NavigationRoutes.Login);
-              });
-            });
-          }}
+      <Stack flex={1} justifyContent={'flex-start'} px={4} py={2}>
+        <Text style={{ textAlign: 'center', marginTop: 40 }}>Profile</Text>
+        <CustomImage
+          source={icons.logo}
+          src={icons.logo}
+          alt=""
+          height={100}
+          mx={'32%'}
+          resizeMode="contain"
         />
+        <View flex={1} justifyContent={'flex-end'}>
+          <CustomButton
+            title="Logout"
+            variant={'rounded_solid'}
+            isLoading={loading}
+            mx={10}
+            mb={5}
+            onPress={async () => {
+              dispatch(doLogout()).then(() => {
+                remove(AppConstants.AUTH_TOKEN).then(() => {
+                  replace(NavigationRoutes.Login);
+                });
+              });
+            }}
+          />
+        </View>
       </Stack>
     </ScreenLayout>
   );

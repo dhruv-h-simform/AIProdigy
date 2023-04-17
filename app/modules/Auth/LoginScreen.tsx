@@ -4,11 +4,21 @@ import { CustomButton } from '../../components';
 import { Linking } from 'react-native';
 import { Stack } from 'native-base';
 import { AppConstants } from '../../constants';
+import CustomImage from '../../components/CustomImage';
+import { icons } from '../../assets';
 
 const LoginScreen = () => {
   return (
     <ScreenLayout>
       <Stack flex={1} justifyContent={'center'} padding={10}>
+        <CustomImage
+          source={icons.logo}
+          src={icons.logo}
+          alt=""
+          height={100}
+          width={'100%'}
+          resizeMode="contain"
+        />
         <CustomButton
           title="Sign in with Zoho"
           variant={'rounded_solid'}
