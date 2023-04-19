@@ -1,4 +1,3 @@
-import { useIsFocused, useRoute } from '@react-navigation/core';
 import { FlatList, Spinner } from 'native-base';
 import React, { useEffect } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
@@ -9,13 +8,14 @@ import { ScreenLayout } from '../../layouts';
 import { useAppDispatch, useAppSelector } from '../../redux';
 import { createTasks, getPortalUsers } from '../../redux/project';
 import { toastRef } from '../../configs';
+import { usePageRoute } from '../../navigation/router/usePageRoute';
 
 const AddUsersScreen = () => {
-  const route = useRoute();
+  const { params } = usePageRoute();
   //@ts-ignore
-  const portal = route?.params?.portal;
+  const portal = params?.portal;
   //@ts-ignore
-  const project = route?.params?.project;
+  const project = params?.project;
   const { navigate, back } = useAppNavigation();
   const dispatch = useAppDispatch();
   const { users, login_id, loading } = useAppSelector(state => state.project);
@@ -49,10 +49,9 @@ const AddUsersScreen = () => {
     });
   };
 
-  const isFocus = useIsFocused();
   useEffect(() => {
     getPortalUsersAll(portal?.id_string);
-  }, [portal, isFocus]);
+  }, [portal]);
 
   const getPortalUsersAll = (id: string) => {
     // Get All Projects
