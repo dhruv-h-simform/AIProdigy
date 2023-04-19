@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ScreenLayout } from '../../layouts';
 import { CustomButton } from '../../components';
 import { Linking } from 'react-native';
@@ -6,8 +6,17 @@ import { Stack } from 'native-base';
 import { AppConstants } from '../../constants';
 import CustomImage from '../../components/CustomImage';
 import { icons } from '../../assets';
+import { generateAccessToken } from '../../redux/authentication';
+import { getPortals } from '../../redux/project';
+import { useAppDispatch } from '../../redux';
 
 const LoginScreen = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(generateAccessToken()).then(() => {
+      dispatch(getPortals());
+    });
+  }, []);
   return (
     <ScreenLayout>
       <Stack flex={1} justifyContent={'center'} padding={10}>
