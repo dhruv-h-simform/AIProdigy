@@ -3,7 +3,7 @@ import type { AxiosError } from 'axios';
 import { AuthorizedAPI, ProjectAuthorizedAPI } from '../../services/Api';
 import type { ValidationErrors } from '../demo';
 import { ApiUrls, AppConstants } from '../../constants';
-import { getString } from '../../utils';
+import { getString, handleError } from '../../utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /**
@@ -26,6 +26,7 @@ export const generateAccessToken = createAsyncThunk<
     if (!ok) {
       return rejectWithValue(data);
     }
+    handleError(data);
     return { ...data };
   } catch (err: any) {
     const error: AxiosError<ValidationErrors> = err; // cast the error for access
@@ -52,7 +53,7 @@ export const doLogout = createAsyncThunk<
     const { data, ok } = await AuthorizedAPI.post<any, any>(
       `${ApiUrls.logout.logout}${token}`,
     );
-
+    handleError(data);
     if (!ok) {
       return rejectWithValue(data);
     }

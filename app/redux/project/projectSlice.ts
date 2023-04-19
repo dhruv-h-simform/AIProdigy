@@ -1,10 +1,11 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { getPortals, getProjects, getTasks } from './service';
+import { getPortals, getPortalUsers, getProjects, getTasks } from './service';
 import {
   type ProjectDataResponse,
   type ProjectInitialStateType,
   type ProjectsDataResponse,
   type TasksDataResponse,
+  type UserDataResponse,
 } from './types';
 
 const initialState: ProjectInitialStateType = {
@@ -13,6 +14,7 @@ const initialState: ProjectInitialStateType = {
   portals: [],
   projects: [],
   tasks: [],
+  users: [],
   login_id: undefined,
 };
 
@@ -84,6 +86,33 @@ export const projectSlice = createSlice({
       state.loading = false;
       state.error = true;
     });
+
+    builder.addCase(
+      getPortalUsers.pending,
+      (state: ProjectInitialStateType) => {
+        state.loading = true;
+        state.error = false;
+        state.users = [];
+      },
+    );
+    builder.addCase(
+      getPortalUsers.fulfilled,
+      (
+        state: ProjectInitialStateType,
+        action: PayloadAction<UserDataResponse> & ProjectInitialStateType,
+      ) => {
+        state.loading = false;
+        state.error = false;
+        state.users = action.payload.users;
+      },
+    );
+    builder.addCase(
+      getPortalUsers.rejected,
+      (state: ProjectInitialStateType) => {
+        state.loading = false;
+        state.error = true;
+      },
+    );
   },
 });
 

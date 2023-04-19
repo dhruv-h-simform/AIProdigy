@@ -16,6 +16,7 @@ import {
 import ProjectsScreen from '../modules/Projects';
 import styles from './styles/TabNavigationStyles';
 import CreateProjectScreen from '../modules/CreateProject';
+import AddUsersScreen from '../modules/AddUsers';
 
 interface CustomTabTextProps extends ITextProps {
   focused?: boolean;
@@ -29,6 +30,7 @@ const HomeStackContainer = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name={NavigationRoutes.Home} component={HomeScreen} />
+
       <Stack.Screen
         name={NavigationRoutes.Details}
         component={ProjectsScreen}
@@ -38,6 +40,10 @@ const HomeStackContainer = () => {
         component={CreateProjectScreen}
       />
       <Stack.Screen name={NavigationRoutes.Task} component={TasksScreen} />
+      <Stack.Screen
+        name={NavigationRoutes.AddUsers}
+        component={AddUsersScreen}
+      />
       <Stack.Screen
         name={NavigationRoutes.UserStories}
         component={CreateUserStories}

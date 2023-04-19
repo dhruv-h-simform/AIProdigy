@@ -21,6 +21,7 @@ const config = {
     [NavigationRoutes.Task]: 'task',
     [NavigationRoutes.UserStories]: 'user-stories',
     [NavigationRoutes.CreateProjectScreen]: 'CreateProjectScreen',
+    [NavigationRoutes.AddUsers]: 'addUsers',
   },
 };
 

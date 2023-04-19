@@ -10,6 +10,7 @@ export default {
     portal: 'portal/',
     projects: 'projects/',
     tasks: 'tasks/',
+    users: 'users/',
   },
   logout: {
     logout: 'token/revoke?token=',

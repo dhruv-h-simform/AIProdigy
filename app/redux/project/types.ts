@@ -4,6 +4,7 @@ export interface ProjectInitialStateType {
   portals: Portal[];
   projects: Portal[];
   tasks: Task[];
+  users: User[];
   login_id?: string;
 }
 
@@ -358,4 +359,25 @@ export interface TaskFollowers {
 export interface Tasklist {
   name: string;
   id: string;
+}
+
+export interface UserDataResponse {
+  users: User[];
+}
+
+interface User {
+  role_name: string;
+  profile_name: string;
+  role: string;
+  profile_type: number | string;
+  role_id: string;
+  profile_id: string;
+  name: string;
+  active?: boolean;
+  id: string;
+  invoice: string;
+  email: string;
+  currency_code: string;
+  client_company_name?: string;
+  client_company_id?: string;
 }

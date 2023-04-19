@@ -1,27 +1,24 @@
-import { useRoute, useIsFocused } from '@react-navigation/core';
+import { useIsFocused, useRoute } from '@react-navigation/core';
 import { FlatList, Spinner } from 'native-base';
 import React, { useEffect } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { CustomButton } from '../../components';
-import { NavigationRoutes, Strings } from '../../constants';
+import { NavigationRoutes } from '../../constants';
 import { useAppNavigation } from '../../hooks';
 import { ScreenLayout } from '../../layouts';
 import { useAppDispatch, useAppSelector } from '../../redux';
-import {
-  createProjects,
-  createTasks,
-  getProjects,
-  getTasks,
-} from '../../redux/project';
+import { createTasks, getPortalUsers } from '../../redux/project';
+import { toastRef } from '../../configs';
 
-const TasksScreen = () => {
+const AddUsersScreen = () => {
   const route = useRoute();
   //@ts-ignore
   const portal = route?.params?.portal;
+  //@ts-ignore
   const project = route?.params?.project;
   const { navigate, back } = useAppNavigation();
   const dispatch = useAppDispatch();
-  const { tasks, login_id, loading } = useAppSelector(state => state.project);
+  const { users, login_id, loading } = useAppSelector(state => state.project);
 
   const createNewTask = () => {
     // Create Project
@@ -54,14 +51,12 @@ const TasksScreen = () => {
 
   const isFocus = useIsFocused();
   useEffect(() => {
-    getAllTasks(portal?.id_string, project?.id_string);
+    getPortalUsersAll(portal?.id_string);
   }, [portal, isFocus]);
 
-  const getAllTasks = (id: string, projectId: string) => {
+  const getPortalUsersAll = (id: string) => {
     // Get All Projects
-    dispatch(getTasks({ portalId: id, projectId: projectId })).then(res => {
-      console.log('resresresresresres', res);
-    });
+    dispatch(getPortalUsers({ portalId: id })).then(res => {});
   };
 
   const renderItem = (props: any) => {
@@ -82,27 +77,18 @@ const TasksScreen = () => {
           style={{
             marginTop: 50,
             textAlign: 'center',
-          }}>{`${project?.name} Tasks`}</Text>
+          }}>{`${project?.name} Users`}</Text>
         {loading && <Spinner mt={20} accessibilityLabel="Loading Tasks" />}
 
         <FlatList
           style={{ marginTop: 30 }}
-          data={tasks}
+          data={users}
           renderItem={renderItem}
           keyExtractor={(item: any) => item?.id_string}
         />
         <View style={{ marginTop: 20 }}>
           <Button onPress={() => back()} title={'Go to back'} />
         </View>
-        <Button
-          onPress={() => {
-            navigate(NavigationRoutes.AddUsers, {
-              portal: portal,
-              project: project,
-            });
-          }}
-          title={'Add Users'}
-        />
         <Button onPress={createNewTask} title={'Create New Task'} />
         <Button
           onPress={() =>
@@ -118,6 +104,6 @@ const TasksScreen = () => {
   );
 };
 
-export default TasksScreen;
+export default AddUsersScreen;
 
 const styles = StyleSheet.create({});

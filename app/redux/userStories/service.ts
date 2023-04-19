@@ -4,6 +4,7 @@ import { ApiUrls } from '../../constants';
 import { getUserStoriesApiInstant } from '../../services/Api';
 import type { ValidationErrors } from '../demo';
 import type { StoryPayload, StoryResponse } from './types';
+import { handleError } from '../../utils';
 
 /**
  * Generate UserStories
@@ -23,6 +24,7 @@ export const generateUserStories = createAsyncThunk<
     if (!ok) {
       return rejectWithValue(data);
     }
+    handleError(data);
     return { ...data };
   } catch (err: any) {
     const error: AxiosError<ValidationErrors> = err; // cast the error for access

@@ -16,4 +16,5 @@ export default {
   Login: '/login',
   SplashScreen: '/splash-screen',
   UserStories: '/user-stories',
+  AddUsers: '/addUsers',
 };

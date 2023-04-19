@@ -8,6 +8,7 @@ import type {
   CreateTaskProps,
   ProListProps,
 } from './types';
+import { handleError } from '../../utils';
 
 /**
  * GetAll Portals thunk api call
@@ -23,7 +24,7 @@ export const getPortals = createAsyncThunk<
     const { data, ok } = await ProjectAuthorizedAPI.get<any, any>(
       `${ApiUrls.home.portals}`,
     );
-
+    handleError(data);
     if (!ok) {
       return rejectWithValue(data);
     }
@@ -48,6 +49,7 @@ export const getProjects = createAsyncThunk(
       const { data, ok } = await ProjectAuthorizedAPI.get<any, any>(
         `${ApiUrls.home.portal}${payload?.portalId}/${ApiUrls.home.projects}`,
       );
+      handleError(data);
       if (!ok) {
         return rejectWithValue(data);
       }
@@ -74,6 +76,35 @@ export const getTasks = createAsyncThunk(
       const { data, ok } = await ProjectAuthorizedAPI.get<any, any>(url, {
         sort_column: 'last_modified_time',
       });
+      handleError(data);
+      if (!ok) {
+        return rejectWithValue(data);
+      }
+      return { ...data };
+    } catch (err: any) {
+      const error: AxiosError<ValidationErrors> = err; // cast the error for access
+      if (!error.response) {
+        throw err;
+      }
+      // We got validation errors, let's return those so we can reference in our component and set form errors
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+/**
+ * 
+Get Portal Users thunk api call
+ */
+export const getPortalUsers = createAsyncThunk(
+  'GetPortalUsers',
+  async (payload: ProListProps, { rejectWithValue }) => {
+    try {
+      const url = `${ApiUrls.home.portal}${payload?.portalId}/${ApiUrls.home.users}`;
+      const { data, ok } = await ProjectAuthorizedAPI.get<any, any>(url, {
+        user_type: 'active',
+      });
+      handleError(data);
       if (!ok) {
         return rejectWithValue(data);
       }
@@ -122,6 +153,7 @@ export const createProjects = createAsyncThunk(
         objToFormData(payload),
         config,
       );
+      handleError(data);
       if (!ok) {
         return rejectWithValue(data);
       }
@@ -167,6 +199,7 @@ export const createTasks = createAsyncThunk(
         objToFormData(payload),
         config,
       );
+      handleError(data);
       if (!ok) {
         return rejectWithValue(data);
       }

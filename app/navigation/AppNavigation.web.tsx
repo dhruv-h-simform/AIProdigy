@@ -9,6 +9,7 @@ import {
 } from '../modules';
 import CreateProjectScreen from '../modules/CreateProject';
 import ProjectsScreen from '../modules/Projects';
+import AddUsersScreen from '../modules/AddUsers';
 
 // import your route components too
 
@@ -28,6 +29,7 @@ const AppNavigation: FC = () => {
           path={NavigationRoutes.UserStories}
           element={<CreateUserStories />}
         />
+        <Route path={NavigationRoutes.AddUsers} element={<AddUsersScreen />} />
       </Routes>
     </BrowserRouter>
   );
