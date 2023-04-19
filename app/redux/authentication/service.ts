@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { AxiosError } from 'axios';
-import { AuthorizedAPI, ProjectAuthorizedAPI } from '../../services/Api';
+import { AuthorizedAPI } from '../../services/Api';
 import type { ValidationErrors } from '../demo';
 import { ApiUrls, AppConstants } from '../../constants';
 import { getString, handleError } from '../../utils';

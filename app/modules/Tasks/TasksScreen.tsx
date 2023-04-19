@@ -1,4 +1,3 @@
-import { useRoute, useIsFocused } from '@react-navigation/core';
 import { FlatList, Spinner } from 'native-base';
 import React, { useEffect } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
@@ -13,12 +12,13 @@ import {
   getProjects,
   getTasks,
 } from '../../redux/project';
+import { usePageRoute } from '../../navigation/router/usePageRoute';
 
 const TasksScreen = () => {
-  const route = useRoute();
+  const { params } = usePageRoute();
   //@ts-ignore
-  const portal = route?.params?.portal;
-  const project = route?.params?.project;
+  const portal = params?.portal;
+  const project = params?.project;
   const { navigate, back } = useAppNavigation();
   const dispatch = useAppDispatch();
   const { tasks, login_id, loading } = useAppSelector(state => state.project);
@@ -52,10 +52,9 @@ const TasksScreen = () => {
     });
   };
 
-  const isFocus = useIsFocused();
   useEffect(() => {
     getAllTasks(portal?.id_string, project?.id_string);
-  }, [portal, isFocus]);
+  }, [portal]);
 
   const getAllTasks = (id: string, projectId: string) => {
     // Get All Projects

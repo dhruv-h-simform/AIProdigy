@@ -1,4 +1,3 @@
-import { useRoute } from '@react-navigation/core';
 import {
   Checkbox,
   ScrollView,
@@ -23,6 +22,7 @@ import { toastRef } from '../../configs';
 import { Colors } from '../../theme';
 import { icons } from '../../assets';
 import { Image } from 'native-base';
+import { usePageRoute } from '../../navigation/router/usePageRoute';
 
 const renderItem = ({ item }: any) => {
   return (
@@ -38,11 +38,11 @@ const renderItem = ({ item }: any) => {
 };
 const CreateUserStories = () => {
   const [query, setQuery] = useState('');
-  const route = useRoute();
+  const { params } = usePageRoute();
   // @ts-ignore
-  const portal = route?.params?.portal;
+  const portal = params?.portal;
   // @ts-ignore
-  const project = route?.params?.project;
+  const project = params?.project;
   const { login_id } = useAppSelector(state => state.project);
   const dispatch = useAppDispatch();
   const { back } = useAppNavigation();

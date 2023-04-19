@@ -1,4 +1,3 @@
-import { useRoute } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { CustomButton, CustomTextInput } from '../../components';
@@ -6,11 +5,12 @@ import { useAppNavigation } from '../../hooks';
 import { ScreenLayout } from '../../layouts';
 import { useAppDispatch, useAppSelector } from '../../redux';
 import { createProjects } from '../../redux/project';
+import { usePageRoute } from '../../navigation/router/usePageRoute';
 
 const CreateProjectScreen = () => {
-  const route = useRoute();
+  const { params } = usePageRoute();
   //@ts-ignore
-  const portal = route?.params?.portal;
+  const portal = params?.portal;
   const { back } = useAppNavigation();
   const dispatch = useAppDispatch();
   const { loading, projects } = useAppSelector(state => state.project);

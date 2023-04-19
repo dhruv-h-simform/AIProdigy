@@ -24,7 +24,6 @@ export const getPortals = createAsyncThunk<
     const { data, ok } = await ProjectAuthorizedAPI.get<any, any>(
       `${ApiUrls.home.portals}`,
     );
-    handleError(data);
     if (!ok) {
       return rejectWithValue(data);
     }
@@ -49,7 +48,6 @@ export const getProjects = createAsyncThunk(
       const { data, ok } = await ProjectAuthorizedAPI.get<any, any>(
         `${ApiUrls.home.portal}${payload?.portalId}/${ApiUrls.home.projects}`,
       );
-      handleError(data);
       if (!ok) {
         return rejectWithValue(data);
       }
@@ -76,7 +74,6 @@ export const getTasks = createAsyncThunk(
       const { data, ok } = await ProjectAuthorizedAPI.get<any, any>(url, {
         sort_column: 'last_modified_time',
       });
-      handleError(data);
       if (!ok) {
         return rejectWithValue(data);
       }
@@ -104,7 +101,6 @@ export const getPortalUsers = createAsyncThunk(
       const { data, ok } = await ProjectAuthorizedAPI.get<any, any>(url, {
         user_type: 'active',
       });
-      handleError(data);
       if (!ok) {
         return rejectWithValue(data);
       }
@@ -153,7 +149,6 @@ export const createProjects = createAsyncThunk(
         objToFormData(payload),
         config,
       );
-      handleError(data);
       if (!ok) {
         return rejectWithValue(data);
       }
@@ -199,7 +194,6 @@ export const createTasks = createAsyncThunk(
         objToFormData(payload),
         config,
       );
-      handleError(data);
       if (!ok) {
         return rejectWithValue(data);
       }

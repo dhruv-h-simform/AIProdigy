@@ -1,4 +1,3 @@
-import { useIsFocused, useRoute } from '@react-navigation/core';
 import { FlatList, Spinner } from 'native-base';
 import React, { useEffect } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
@@ -8,19 +7,20 @@ import { useAppNavigation } from '../../hooks';
 import { ScreenLayout } from '../../layouts';
 import { useAppDispatch, useAppSelector } from '../../redux';
 import { getProjects } from '../../redux/project';
+import { usePageRoute } from '../../navigation/router/usePageRoute';
+import { isWeb } from '../../theme';
 
 const ProjectsScreen = () => {
-  const route = useRoute();
+  const { params } = usePageRoute();
   //@ts-ignore
-  const portal = route?.params?.item;
-  const isFocus = useIsFocused();
+  const portal = params?.item;
   const { navigate } = useAppNavigation();
   const dispatch = useAppDispatch();
   const { loading, projects } = useAppSelector(state => state.project);
 
   useEffect(() => {
     getAllProjects(portal?.id);
-  }, [portal?.id, isFocus]);
+  }, [portal?.id]);
 
   const getAllProjects = (id: string) => {
     // Get All Projects
@@ -57,7 +57,11 @@ const ProjectsScreen = () => {
         />
         <View style={{ marginTop: 20 }}>
           <Button
-            onPress={() => navigate(NavigationRoutes.Home)}
+            onPress={() =>
+              isWeb
+                ? navigate(NavigationRoutes.BottomTabs)
+                : navigate(NavigationRoutes.Home)
+            }
             title={'Go to back'}
             style={{ margin: 10 }}
           />

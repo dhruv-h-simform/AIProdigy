@@ -13,6 +13,7 @@ const getApiInstance = (baseURL: string) => {
     headers: {
       'Cache-Control': 'no-cache',
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://localhost:3000',
     },
   });
 };
