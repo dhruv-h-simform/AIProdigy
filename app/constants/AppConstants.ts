@@ -15,6 +15,6 @@ export default {
     ? '9414abb3f399aab45173a15abd96b2654178255e66'
     : 'a0b981e9b0d1eb7f80081e483d178d2b512f25811d',
   ZOHO_REDIRECT_URL: isWeb
-    ? 'https://main--velvety-fudge-ed7fcc.netlify.app'
+    ? 'https://velvety-fudge-ed7fcc.netlify.app'
     : 'promanage://bottom-tabs',
 };
