@@ -14,6 +14,7 @@ import { Colors } from '../../theme';
 export type arrayData = {
   value: string;
   label: string;
+  id: any;
 };
 
 interface CustomCheckboxProps extends ICheckboxGroupProps {
@@ -31,7 +32,7 @@ const CustomCheckbox: FC<CustomCheckboxProps> = ({
   required,
   ...rest
 }) => {
-  const [groupValues, setGroupValues] = useState<Array<string>>([]);
+  const [groupValues, setGroupValues] = useState<arrayData[]>([]);
 
   return (
     <>
@@ -68,8 +69,20 @@ const CustomCheckbox: FC<CustomCheckboxProps> = ({
                 value={item.value}
                 onChange={isSelected => {
                   if (isSelected) {
-                    setGroupValues([...groupValues, item?.value]);
-                    onChange && onChange(groupValues);
+                    setGroupValues([...groupValues, item]);
+                    onChange && onChange([...groupValues, item]);
+                  } else {
+                    setGroupValues(
+                      groupValues.filter((elem: any) => {
+                        return elem?.id === item?.id;
+                      }),
+                    );
+                    onChange &&
+                      onChange(
+                        groupValues.filter((elem: any) => {
+                          return elem?.id === item?.id;
+                        }),
+                      );
                   }
                 }}
                 accessibilityLabel={'ass'}
@@ -125,6 +138,24 @@ const CustomCheckbox: FC<CustomCheckboxProps> = ({
                     size={[10]}
                   />
                 }
+                onChange={isSelected => {
+                  if (isSelected) {
+                    setGroupValues([...groupValues, item]);
+                    onChange && onChange(groupValues);
+                  } else {
+                    setGroupValues(
+                      groupValues.filter((elem: any) => {
+                        return elem?.id === item?.id;
+                      }),
+                    );
+                    onChange &&
+                      onChange(
+                        groupValues.filter((elem: any) => {
+                          return elem?.id === item?.id;
+                        }),
+                      );
+                  }
+                }}
                 {...checkboxProps}>
                 {item.label}
               </Checkbox>

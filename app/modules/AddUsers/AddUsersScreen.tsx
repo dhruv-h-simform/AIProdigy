@@ -1,15 +1,17 @@
-import { FlatList, Spinner } from 'native-base';
-import React, { useEffect } from 'react';
+import { Checkbox, FlatList, HStack, Spinner } from 'native-base';
+import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { CustomButton } from '../../components';
-import { NavigationRoutes } from '../../constants';
 import { useAppNavigation } from '../../hooks';
 import { ScreenLayout } from '../../layouts';
-import { useAppDispatch, useAppSelector } from '../../redux';
-import { createTasks, getPortalUsers } from '../../redux/project';
-import { toastRef } from '../../configs';
 import { usePageRoute } from '../../navigation/router/usePageRoute';
+import { useAppDispatch, useAppSelector } from '../../redux';
+import {
+  addUsersInProject,
+  createTasks,
+  getPortalUsers,
+} from '../../redux/project';
 
+let selectedUsers: string[] = [];
 const AddUsersScreen = () => {
   const { params } = usePageRoute();
   //@ts-ignore
@@ -19,33 +21,19 @@ const AddUsersScreen = () => {
   const { navigate, back } = useAppNavigation();
   const dispatch = useAppDispatch();
   const { users, login_id, loading } = useAppSelector(state => state.project);
+  const [selectAll, setSelectAll] = useState<boolean>(false);
 
-  const createNewTask = () => {
+  const addUsers = () => {
     // Create Project
     dispatch(
-      createTasks({
+      addUsersInProject({
         name: 'First Demo Task with AI',
-        // project_rate: 20,
-        // bill_status: 'Billable',
-        // public: false,
         portalId: portal?.id_string,
         projectId: project?.id_string,
-        person_responsible: Number(login_id),
-        // // owner: undefined,
-        // description: 'This is demo project',
-        // template_id: 0,
-        // group_id: 2108785000000018001,
-        // start_date: '04/16/2023',
-        // end_date: '04/16/2025',
-        // strict_project: '1',
-        // field_id: 'UDF_MULTI1',
-        // budget_type: 6,
-        // budget_value: 20000,
-        // threshold: 10000,
-        // currency: 'USD',
+        email: selectedUsers.join(','),
       }),
     ).then(res => {
-      console.log('createTaskscreateTaskscreateTasks', res);
+      back();
     });
   };
 
@@ -58,16 +46,38 @@ const AddUsersScreen = () => {
     dispatch(getPortalUsers({ portalId: id })).then(res => {});
   };
 
+  const onCheckBoxPress = (id: string) => {
+    if (selectedUsers.includes(id)) {
+      selectedUsers.splice(selectedUsers.indexOf(id), 1);
+    } else {
+      selectedUsers = selectedUsers.concat(id);
+    }
+  };
+
   const renderItem = (props: any) => {
-    const { item } = props;
+    const { item, index } = props;
     return (
-      <CustomButton
-        title={`${item.name}`}
-        // onPress={() => getAllProjects(item?.id_string)}
-        style={{ margin: 10 }}
-      />
+      <HStack alignItems={'center'} mx={5}>
+        <Checkbox
+          value={selectedUsers[index]}
+          onChange={() => onCheckBoxPress(item.email)}
+        />
+        <Text style={{ margin: 10 }}>
+          {item.name} - {item.email}
+        </Text>
+      </HStack>
     );
   };
+
+  // useEffect(() => {
+  //   if (!selectAll) {
+  //     users.forEach(item => {
+  //       return (selectedUsers = selectedUsers.concat(item?.email));
+  //     });
+  //   } else {
+  //     selectedUsers = [];
+  //   }
+  // }, [selectAll]);
 
   return (
     <ScreenLayout>
@@ -79,25 +89,50 @@ const AddUsersScreen = () => {
           }}>{`${project?.name} Users`}</Text>
         {loading && <Spinner mt={20} accessibilityLabel="Loading Tasks" />}
 
+        {/* <Checkbox
+          width={'90%'}
+          borderColor={'app.black.light'}
+          _dark={{
+            borderColor: 'app.white.light',
+            backgroundColor: 'app.white.dark',
+          }}
+          _hover={{
+            borderColor: 'app.primary.light',
+          }}
+          _checked={{
+            backgroundColor: 'app.primary.light',
+            borderColor: 'app.primary.light',
+            _hover: { borderColor: 'app.black.light' },
+          }}
+          _text={{
+            fontSize: [14, 17],
+            lineHeight: [14, 17],
+            color: useColorModeValue(Colors.white.dark, Colors.white.light),
+          }}
+          value={'Select All'}
+          my={1}
+          key={Math.random()}
+          size={'sm'}
+          isChecked={selectAll}
+          onChange={isChange => {
+            setSelectAll(isChange);
+          }}
+          icon={
+            <Image alt="checkBox-img" source={icons.checkIcon} size={[10]} />
+          }>
+          Select All
+        </Checkbox> */}
         <FlatList
           style={{ marginTop: 30 }}
           data={users}
           renderItem={renderItem}
           keyExtractor={(item: any) => item?.id_string}
         />
+
         <View style={{ marginTop: 20 }}>
           <Button onPress={() => back()} title={'Go to back'} />
         </View>
-        <Button onPress={createNewTask} title={'Create New Task'} />
-        <Button
-          onPress={() =>
-            navigate(NavigationRoutes.UserStories, {
-              portal: portal,
-              project: project,
-            })
-          }
-          title={'Create New Stories'}
-        />
+        <Button onPress={addUsers} title={'Add Users'} />
       </View>
     </ScreenLayout>
   );
